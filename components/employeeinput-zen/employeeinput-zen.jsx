@@ -15,7 +15,7 @@ const EmployeeInput = () => {
   const [ethnicity, setEthnicity] = useState("");
   const [employementType, setEmployementType] = useState("");
   const [hrmanager, setHRmanager] = useState("");
-  const [location, setLocation] = useState("");
+  const [locationRight, setLocationRight] = useState("");
   const [locationleft, setLocationleft] = useState("");
   const [category, setCategory] = useState("");
   const [workAuthorization, setWorkAuthorization] = useState("");
@@ -50,8 +50,8 @@ const EmployeeInput = () => {
   };
 
   //location
-  const handleLocation = (selectedLocation) => {
-    setLocation(selectedLocation);
+  const handleLocationRight = (selectedLocation) => {
+    setLocationRight(selectedLocation);
   };
 
   //locationleft
@@ -173,7 +173,7 @@ const EmployeeInput = () => {
     { value: "on-site", label: "on-site" },
     { value: "Bench", label: "Bench" },
   ];
-  const Classifaction = [{ value: "Billable", label: "Non-Billable" }];
+
   // select element custom theme //
   const theme = (theme) => ({
     ...theme,
@@ -196,9 +196,43 @@ const EmployeeInput = () => {
     }),
   };
   const handleOnSubmit = async (value) => {
+    const {
+      firstname,
+      middlename,
+      lastname,
+      jobtitle,
+      username,
+      shortname,
+      email,
+      alternateemail,
+      dateofbirth,
+      securitynumber,
+      contactnumber,
+      gender,
+      ethnicity,
+      employmentType,
+      employmentid,
+      hrmanager,
+      dateofjoining,
+      locationRight,
+      locationleft,
+      category,
+      workAuthorization,
+      classifaction,
+      payrollid,
+      holidaycalender,
+      workerid,
+      weekendprofile,
+      veteransatus,
+      employeetype,
+      maritalsatus,
+      employeestatus,
+    } = value;
     try {
       const docRef = await addDoc(collection(db, "Employees"), {
         ...value,
+        securitynumber: Number(securitynumber),
+        contactnumber: Number(contactnumber),
       });
     } catch (e) {
       console.log("Adding Document:", e);
@@ -223,10 +257,11 @@ const EmployeeInput = () => {
       employmentid: "",
       hrmanager: "",
       dateofjoining: "",
-      location: "",
+      locationRight: "",
+      locationleft: "",
       category: "",
       workAuthorization: "",
-      Classifaction: "",
+      classifaction: "",
       payrollid: "",
       holidaycalender: "",
       workerid: "",
@@ -238,10 +273,10 @@ const EmployeeInput = () => {
     },
 
     onSubmit: handleOnSubmit,
-    onSubmit: (value) => {
-      setDataInfo((prev) => [...prev, value]);
-      localStorage.setItem("EmployeInp", JSON.stringify(dataInfo));
-    },
+    // onSubmit: (value) => {
+    //   setDataInfo((prev) => [...prev, value]);
+    //   localStorage.setItem("EmployeInp", JSON.stringify(dataInfo));
+    // },
 
     //   Form //
 
@@ -985,28 +1020,29 @@ const EmployeeInput = () => {
                 <span className="w-[7rem]">Location</span>
               </label>
               <Select
-                id="location"
+                id="locationRight"
                 theme={theme}
                 options={Right}
                 isSearchoable={true}
                 className=" select-bordered w-[6rem]  join-item"
                 styles={customStyles}
-                name="location"
-                value={(formik.values.location = location)}
+                name="locationRight"
+                value={(formik.values.location = locationRight)}
                 // onChange={formik.handleChange}
                 onChange={(selectedOption) => {
-                  handleLocation(selectedOption);
+                  handleLocationRight(selectedOption);
                 }}
               />
               <span>
                 <Select
-                  id="job"
+                  id="locationLeft"
                   theme={theme}
+                  name="locationLeft"
                   options={Left}
                   isSearchoable={true}
                   className=" select-bordered  w-[7rem] mx-3 join-item"
                   styles={customStyles}
-                  value={(formik.values.locationleft = locationleft)}
+                  value={(formik.values.location = locationleft)}
                   onChange={(selectedOption) => {
                     handleLocationleft(selectedOption);
                   }}
@@ -1072,11 +1108,12 @@ const EmployeeInput = () => {
             <div className="flex gap-3 mx-2 my-2">
               <div>
                 <input
+                  id="Billable"
                   type="radio"
-                  name="radio-1"
+                  name="classifaction"
                   value={"Billable"}
                   onChange={handleChange}
-                  defaultChecked={values.Classifaction === "Billable"}
+                  defaultChecked={values.classifaction === "Billable"}
                   className="radio w-4 h-4 mx-2 checked:bg-green-500 "
                   checked
                 />
@@ -1085,10 +1122,11 @@ const EmployeeInput = () => {
               <div>
                 <input
                   type="radio"
-                  name="radio-1"
+                  id="Non-Billable"
+                  name="classifaction"
                   value={"Non-Billable"}
                   onChange={handleChange}
-                  defaultChecked={values.Classifaction === "Non-Billable"}
+                  defaultChecked={values.classifaction === "Non-Billable"}
                   className="radio  w-4 h-4  mx-2 checked:bg-green-500"
                 />
                 <span>Non-Billable</span>
@@ -1347,12 +1385,13 @@ const EmployeeInput = () => {
             <div className="my-1">
               <span>
                 <input
+                  id="Employee/Consulant/Contractor"
                   type="radio"
-                  name="radio-10"
+                  name="employeetype"
                   onChange={handleChange}
                   value={"Employee/Consulant/Contractor"}
                   defaultChecked={
-                    values.Employee === "Employee/Consulant/Contractor"
+                    values.employeetype === "Employee/Consulant/Contractor"
                   }
                   className="radio checked:bg-green-500 w-4 h-4 mx-2"
                   checked
@@ -1363,11 +1402,12 @@ const EmployeeInput = () => {
             <div>
               <span>
                 <input
+                  id="Back-Office Staff"
                   type="radio"
-                  name="radio-10"
-                  value={"Back-Office Staff"}
+                  name="employeetype"
                   onChange={handleChange}
-                  defaultChecked={values.Employmee === "Back-Office Staff"}
+                  value={"Back-Office Staff"}
+                  defaultChecked={values.employeetype === "Back-Office Staff"}
                   className="radio checked:bg-green-500 w-4 h-4 mx-2"
                 />
               </span>
@@ -1463,7 +1503,7 @@ const EmployeeInput = () => {
         {/* submit  */}
         <div>
           <button
-            className="btn btn-sm lg:w-[35rem] lg:mx-[33rem]  font-semibold border-none bg-gray-300 hover:text-white hover:bg-green-500 "
+            className="btn btn-sm lg:w-[35rem] lg:mx-[33rem]  font-semibold text-black border-none bg-gray-300 hover:text-white hover:bg-green-500 "
             type="submit"
           >
             Submit
