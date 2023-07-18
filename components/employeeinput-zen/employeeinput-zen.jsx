@@ -173,7 +173,7 @@ const EmployeeInput = () => {
     { value: "on-site", label: "on-site" },
     { value: "Bench", label: "Bench" },
   ];
-
+  const Classifaction = [{ value: "Billable", label: "Non-Billable" }];
   // select element custom theme //
   const theme = (theme) => ({
     ...theme,
