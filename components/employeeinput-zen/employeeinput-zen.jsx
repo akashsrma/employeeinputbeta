@@ -231,7 +231,6 @@ const EmployeeInput = () => {
     try {
       const docRef = await addDoc(collection(db, "Employees"), {
         ...value,
-        securitynumber: Number(securitynumber),
         contactnumber: Number(contactnumber),
       });
     } catch (e) {
@@ -1027,7 +1026,10 @@ const EmployeeInput = () => {
                 className=" select-bordered w-[6rem]  join-item"
                 styles={customStyles}
                 name="locationRight"
-                value={(formik.values.location = locationRight)}
+                value={
+                  (formik.values.location = locationRight) &&
+                  (formik.values.locationRight = locationRight)
+                }
                 // onChange={formik.handleChange}
                 onChange={(selectedOption) => {
                   handleLocationRight(selectedOption);
@@ -1042,7 +1044,10 @@ const EmployeeInput = () => {
                   isSearchoable={true}
                   className=" select-bordered  w-[7rem] mx-3 join-item"
                   styles={customStyles}
-                  value={(formik.values.location = locationleft)}
+                  value={
+                    (formik.values.location = locationleft) &&
+                    (formik.values.locationleft = locationleft)
+                  }
                   onChange={(selectedOption) => {
                     handleLocationleft(selectedOption);
                   }}
