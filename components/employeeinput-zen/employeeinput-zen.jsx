@@ -231,7 +231,8 @@ const EmployeeInput = () => {
     try {
       const docRef = await addDoc(collection(db, "Employees"), {
         ...value,
-        contactnumber: Number(contactnumber),
+        // contactnumber: Number(contactnumber),
+        // contactnumber: parseInt(contactnumber),
       });
     } catch (e) {
       console.log("Adding Document:", e);
@@ -503,7 +504,7 @@ const EmployeeInput = () => {
                 }}
               />
             </div>
-            <div className="mx-[9rem] my-1">
+            <div className="mx-[7rem] my-1">
               {/* required */}
               <small className="my-1 font-sensrif ">
                 {formik.touched.jobtitle && formik.errors.jobtitle && (
