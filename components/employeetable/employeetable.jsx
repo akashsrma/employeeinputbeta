@@ -68,6 +68,8 @@ const Employeetable = ({ textColor, tableData_text_center }) => {
                 <th>payrollID</th>
                 <th>Worker ID</th>
                 <th>Veteran Status</th>
+                <th>Employee Status</th>
+
                 <th>
                   Ethnicity
                   {/* <span
@@ -145,6 +147,11 @@ const Employeetable = ({ textColor, tableData_text_center }) => {
                           </td>
                           <td className={tableData_text_center}>
                             {item.veteransatus.value}
+                          </td>
+                          <td className={tableData_text_center}>
+                            {item.employeestatus.map((val, index) => (
+                              <span key={index}>{`${val.value} , `}</span>
+                            ))}
                           </td>
                           <td className={tableData_text_center}>
                             {item.ethnicity.value}
